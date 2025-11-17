@@ -35,8 +35,6 @@ public class Main {
         article.title = title;
         article.content = content;
 
-        System.out.println("생성 된 게시물 객체 : " + article);
-
         articles.add(article);
 
         System.out.printf("%d번 게시물이 등록 되었습니다.\n", id);
@@ -46,24 +44,51 @@ public class Main {
         String[] urlBits = cmd.trim().split("/");
         // System.out.println(Arrays.toString(urlBits));
 
-        // int id = Integer.parseInt(urlBits[4]);
+        if (urlBits.length < 5) {
+          System.out.println("id를 입력해주세요.");
+          continue;
+        }
 
-       if (articles.isEmpty()) {
-         System.out.println("게시물이 존재하지 않습니다.");
-         continue;
-       }
+        int id = 0;
+        try {
+          id = Integer.parseInt(urlBits[4]);
+        }
 
-        Article article = articles.getLast();
+        catch (NumberFormatException e) {
+          System.out.println("id를 숫자형태로 입력해주세요.");
+          continue;
+        }
 
-        if (article == null) {
+        if (articles.isEmpty()) {
           System.out.println("게시물이 존재하지 않습니다.");
           continue;
         }
 
-        System.out.printf("%d번 게시물 상세보기\n", article.id);
-        System.out.printf("번호 : %d\n", article.id);
-        System.out.printf("제목 : %s\n", article.title);
-        System.out.printf("내용 : %s\n", article.content);
+        int finalId = id;
+        Article findArticle = articles.stream()
+            .filter(article -> article.id == finalId) // 필터링
+            .findFirst().orElse(null); // 찾은 것 중 첫번째 반환, 없으면 null값 반환.
+
+        /*
+        Article findArticle = null;
+        for (int i = 0; i < articles.size(); i++) {
+          Article article = articles.get(i);
+          if (article.id == id) {
+            findArticle = article;
+            break;
+          }
+        }
+        */
+
+        if (findArticle == null) {
+          System.out.println("게시물이 존재하지 않습니다.");
+          continue;
+        }
+
+        System.out.printf("%d번 게시물 상세보기\n", findArticle.id);
+        System.out.printf("번호 : %d\n", findArticle.id);
+        System.out.printf("제목 : %s\n", findArticle.title);
+        System.out.printf("내용 : %s\n", findArticle.content);
       }
       else if (cmd.equals("exit")) {
         System.out.println("프로그램을 종료합니다.");
