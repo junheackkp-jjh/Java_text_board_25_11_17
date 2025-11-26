@@ -11,6 +11,12 @@ public class Main {
     List<Article> articles = new ArrayList<>();
     int lastId = 0;
 
+    // 게시물 테스트 데이터 구현 시작
+    articles.add(new Article(1, "제목1", "내용1"));
+    articles.add(new Article(2, "제목2", "내용2"));
+    articles.add(new Article(3, "제목3", "내용3"));
+    // 게시물 테스트 데이터 구현 끝
+
     System.out.println("== 자바 게시판 시작 ==");
 
     while (true) {
@@ -81,7 +87,7 @@ public class Main {
         /*
         for (Article article : articles) {
           System.out.printf("%d | %s\n", article.id, article.title);
-        
+
         articles.forEach(
             article -> System.out.println("게시물이 존재하지 않습니다.")
         );
