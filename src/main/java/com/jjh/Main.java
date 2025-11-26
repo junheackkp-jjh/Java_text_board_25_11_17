@@ -1,9 +1,7 @@
 package com.jjh;
 
 import com.jjh.domain.article.Article;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,10 +28,7 @@ public class Main {
 
         int id = ++lastId;
 
-        Article article = new Article();
-        article.id = id;
-        article.title = title;
-        article.content = content;
+        Article article = new Article(id, title, content);
 
         articles.add(article);
 
@@ -68,17 +63,6 @@ public class Main {
         Article findArticle = articles.stream()
             .filter(article -> article.id == finalId) // 필터링
             .findFirst().orElse(null); // 찾은 것 중 첫번째 반환, 없으면 null값 반환.
-
-        /*
-        Article findArticle = null;
-        for (int i = 0; i < articles.size(); i++) {
-          Article article = articles.get(i);
-          if (article.id == id) {
-            findArticle = article;
-            break;
-          }
-        }
-        */
 
         if (findArticle == null) {
           System.out.println("게시물이 존재하지 않습니다.");
